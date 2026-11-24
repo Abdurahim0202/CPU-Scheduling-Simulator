@@ -1,0 +1,10 @@
+# Compiled executables
+scheduler
+cpu_simulator
+a.out
+
+# Object files
+*.o
+
+# VS Code local settings
+.vscode/
