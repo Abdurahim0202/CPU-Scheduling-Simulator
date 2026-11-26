@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 typedef struct{
     int pid; 
@@ -71,16 +72,25 @@ int main(){
             }
             processes[i].remaining_time = processes[i].burst_time;
         }
+        int ch;
+        while ((ch = fgetc(file)) != EOF) {
+            if (!isspace(ch)) {
+                printf("Error: Unexpected extra data in input file.\n");
+                fclose(file);
+                return 1;
+            }
+        }
+
         printf("Number of Processes: %d\n", count);
         printf("Process Data:\n");
         for(int i = 0; i < count; i++){
-        printf("Process PID=%d, Arrival Time=%d, Burst Time=%d\n",
-            processes[i].pid,
-            processes[i].arrival_time,
-            processes[i].burst_time);
+            printf("Process PID=%d, Arrival Time=%d, Burst Time=%d\n",
+                processes[i].pid,
+                processes[i].arrival_time,
+                processes[i].burst_time);
+        }
     }
-    }
-
+    
     fclose(file);
     printf("File Closed Successfully.\n");
 
