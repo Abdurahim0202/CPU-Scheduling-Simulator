@@ -89,16 +89,22 @@ void spn(Process processes[], int n) {
 
     printf("\n");
 
-    printf("SPN Execution Order: \n");
+    printf("\nSPN Gantt Chart:\n");
 
     for (int i = 0; i < execution_count; i++) {
-
         if (execution_order[i] == -1) {
-            printf("CPU IDLE Interval %d -> %d \n", execution_start[i], execution_end[i]);
+            printf("| IDLE ");
         }
         else {
-            printf("Process%d %d -> %d \n", execution_order[i], execution_start[i], execution_end[i]);
+            printf("| P%d ", processes[execution_order[i]].pid);
         }
     }
-    printf("\n");
+
+    printf("|\n");
+
+    for (int i = 0; i < execution_count; i++) {
+        printf("%d     ", execution_start[i]);
+    }
+
+    printf("%d\n", execution_end[execution_count-1]);
 }
