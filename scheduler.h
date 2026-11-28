@@ -13,5 +13,6 @@ typedef struct {
 } Process;
 
 void spn(Process processes[], int n);
+void srt(Process processes[], int n);
 
 #endif

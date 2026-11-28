@@ -108,3 +108,41 @@ void spn(Process processes[], int n) {
 
     printf("%d\n", execution_end[execution_count-1]);
 }
+
+
+void srt(Process processes[], int n) {
+    int current_time = 0;
+    int completed = 0;
+    int selected = -1;
+
+    for(int i = 0; i < n; i++){
+        processes[i].remaining_time = processes[i].burst_time; 
+    }
+
+    while (completed < n) {
+        selected = -1;
+
+        // Find the process with the shortest remaining time
+        for(int i = 0; i < n; i++){
+            if(processes[i].arrival_time <= current_time && processes[i].remaining_time > 0 ){
+                if(selected == -1 || processes[i].remaining_time < processes[selected].remaining_time){
+                    selected = i; 
+                }
+            }
+        }
+
+        // Execute for one time unit
+        if(selected != -1){
+            processes[selected].remaining_time -= 1;
+        }
+        current_time += 1; 
+
+
+        // Check whether the process finished
+        if(selected != -1 && processes[selected].remaining_time == 0){
+            completed += 1; 
+            processes[selected].completion_time = current_time; 
+        }
+    }
+    printf("SRT scheduling initialized for %d processes.\n", n);
+}
